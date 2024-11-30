@@ -1,15 +1,35 @@
 // import 'package:chatapp/pages/home.dart';
 // import 'package:chatapp/pages/signin.dart';
 // import 'package:chatapp/pages/signup.dart';
+import 'dart:nativewrappers/_internal/vm/lib/internal_patch.dart';
+
 import 'package:chatapp/pages/chatpage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializesAPP();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+String email="", password="", name="", confirmPassword='';
+
+TextEditingController mailcontroller= new TextEditingController();
+TextEditingController passwordcontroller= new TextEditingController();
+TextEditingController namecontroller= new TextEditingController();
+TextEditingController confirmPasswordcontroller= new TextEditingController();
+
+registration()async{
+  if(password!=null && password==confirmPassword){
+    try{
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password):
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Registered Successfully", style: TextStyle(fontSize: 20,color: Colors.green))))
+    }
+  }
+}
 
   // This widget is the root of your application.
   @override
